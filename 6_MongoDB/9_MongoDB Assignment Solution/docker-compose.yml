@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  consumer:
+    image: consumer_image
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=pkc-921jm.us-east-2.aws.confluent.cloud:9092
+      - KAFKA_SASL_MECHANISMS=PLAIN
+      - KAFKA_SECURITY_PROTOCOL=SASL_SSL
+      - KAFKA_SASL_USERNAME=6XKBXWERKDEGFDUB
+      - KAFKA_SASL_PASSWORD=Px0Bvj8IhlYWQNSChmL7e6o8BrG5IQrZvEQ0HWx9R0FSJDZi4wYotXoa0q6Na+aj
+      - KAFKA_GROUP_ID=group11
+      - KAFKA_AUTO_OFFSET_RESET=earliest
+    command: ["python", "logistics_data_consumer.py"]

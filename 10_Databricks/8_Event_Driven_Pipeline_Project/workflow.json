@@ -1,0 +1,57 @@
+{
+    "job_id": 1087352112859877,
+    "creator_user_name": "shashankde219@gmail.com",
+    "run_as_user_name": "shashankde219@gmail.com",
+    "run_as_owner": true,
+    "settings": {
+      "name": "orders_tracking_incremental_load",
+      "email_notifications": {
+        "no_alert_for_skipped_runs": false
+      },
+      "webhook_notifications": {},
+      "timeout_seconds": 0,
+      "trigger": {
+        "pause_status": "UNPAUSED",
+        "file_arrival": {
+          "url": "/Volumes/incremental_load/default/orders_data/source/"
+        }
+      },
+      "max_concurrent_runs": 1,
+      "tasks": [
+        {
+          "task_key": "stage_load",
+          "run_if": "ALL_SUCCESS",
+          "notebook_task": {
+            "notebook_path": "/Workspace/Users/shashankde219@gmail.com/databricks_event_driven_pipeline/orders_stage_load",
+            "source": "WORKSPACE"
+          },
+          "existing_cluster_id": "1220-164149-p159zqx1",
+          "timeout_seconds": 0,
+          "email_notifications": {},
+          "webhook_notifications": {}
+        },
+        {
+          "task_key": "target_load",
+          "depends_on": [
+            {
+              "task_key": "stage_load"
+            }
+          ],
+          "run_if": "ALL_SUCCESS",
+          "notebook_task": {
+            "notebook_path": "/Workspace/Users/shashankde219@gmail.com/databricks_event_driven_pipeline/orders_target_load",
+            "source": "WORKSPACE"
+          },
+          "existing_cluster_id": "1220-164149-p159zqx1",
+          "timeout_seconds": 0,
+          "email_notifications": {},
+          "webhook_notifications": {}
+        }
+      ],
+      "format": "MULTI_TASK",
+      "queue": {
+        "enabled": true
+      }
+    },
+    "created_time": 1734844910818
+  }
