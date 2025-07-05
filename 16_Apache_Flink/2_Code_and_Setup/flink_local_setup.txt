@@ -1,0 +1,44 @@
+Follow these steps to setup and run flink cluster in local
+
+================================================================
+
+
+1.) Download the Apache Flink binary with Scala 2.12 support:
+     
+    wget https://dlcdn.apache.org/flink/flink-1.20.0/flink-1.20.0-bin-scala_2.12.tgz
+
+2.) Extract the contents of the downloaded archive:
+
+	tar -xvzf flink-1.20.0-bin-scala_2.12.tgz
+	cd flink-1.20.0
+
+3.) Install the Apache Flink Python module using pip:
+	
+	pip3 install apache-flink==1.20.0
+
+4.) Find the Python executable path:
+
+	which python3
+
+	Example output - /opt/homebrew/bin/python3.11
+
+5.) Edit the Flink configuration file to specify the Python executable path:
+
+	vim ./conf/config.yaml
+
+6.) Add the following lines to the configuration file:
+
+	python.client.executable: /opt/homebrew/bin/python3.11
+	python.executable: /opt/homebrew/bin/python3.11
+
+7.) Download flink-sql-connector-kafka-1.17.2.jar file from https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-kafka/1.17.2/
+
+8.) Copy flink-sql-connector-kafka-1.17.2.jar file into flink-1.20.0/lib
+
+9.) Stop flink cluster command - ./bin/stop-cluster.sh
+
+10.) Start flink cluster command - ./bin/start-cluster.sh
+
+11.) Once flink cluster is started it can be accessed in the browser as localhost:8081
+
+12.) Command to run flink application in local - ./bin/flink run -python /Users/shashankmishra/Desktop/flink_test.py
